@@ -1,7 +1,10 @@
 # haitou-kanri.com-chrome-extension
-* ポートフォリを作成する
+* haitou-kanri.com のChrome拡張です
+* 開いているページの株保有情報を取得して、ログイン中のhaitou-kanri.com に送信して保有している株として登録します
 
 ## TODO
-* 認証
-* localhost:3000にbodyを送信する
-* 画面を作る
+* 認証する
+* ストアに更新する
+* SBIに対応する
+* ポートフォリオの作成数上限だったらエラーを表示する
+* 本番ビルドの時はサーバの送信先を本番にする

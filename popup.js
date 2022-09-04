@@ -6,7 +6,9 @@ async function getCurrentTab() {
 
 function getStockTable(element) {
   const html = document.getElementById("table_possess_data").innerHTML;
-  const normalizedHtml = html.replace(/[\t\n]/g, "");
+  const normalizedHtml = html.
+    replace(/[\t\n]/g, '').
+    replace(/<!--[\s\S]*?-->/g, ''); // コメントの削除
   return normalizedHtml;
 }
 

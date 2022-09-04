@@ -8,7 +8,17 @@ function getStockTable(element) {
   const html = document.getElementById("table_possess_data").innerHTML;
   const normalizedHtml = html.
     replace(/[\t\n]/g, '').
-    replace(/<!--[\s\S]*?-->/g, ''); // コメントの削除
+    replace(/<!--[\s\S]*?-->/g, ''). // コメントの削除
+    replace(/href="+[^"]*?"/g, ''). // 属性の削除
+    replace(/class="+[^"]*?"/g, '').
+    replace(/style="+[^"]*?"/g, '').
+    replace(/align="+[^"]*?"/g, '').
+    replace(/src="+[^"]*?"/g, '').
+    replace(/width="+[^"]*?"/g, '').
+    replace(/border="+[^"]*?"/g, '').
+    replace(/cellspacing="+[^"]*?"/g, '').
+    replace(/cellpadding="+[^"]*?"/g, '');
+
   return normalizedHtml;
 }
 

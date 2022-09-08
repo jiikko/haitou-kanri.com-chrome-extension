@@ -31,7 +31,7 @@ async function clickHandler() {
     }, (doc) => {
       const tableHtml = doc[0].result;
       const host = 'http://localhost:3000'
-      const requestPath = '/api/portfolios';
+      const requestPath = '/api/v1/portfolios';
 
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `${host}${requestPath}`);

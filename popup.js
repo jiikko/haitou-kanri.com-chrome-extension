@@ -17,6 +17,8 @@ function getStockTable(element) {
     replace(/width="+[^"]*?"/g, '').
     replace(/border="+[^"]*?"/g, '').
     replace(/cellspacing="+[^"]*?"/g, '').
+    replace(/colspan="+[^"]*?"/g, '').
+    replace(/title="+[^"]*?"/g, '').
     replace(/cellpadding="+[^"]*?"/g, '');
 
   return normalizedHtml;

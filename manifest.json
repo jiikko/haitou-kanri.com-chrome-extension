@@ -5,9 +5,9 @@
   "manifest_version": 3,
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
-  "host_permissions": [ "https://member.rakuten-sec.co.jp" ],
   "action": {
     "default_title": "配当管理WEB - インポート",
     "default_icon": "icon.png",

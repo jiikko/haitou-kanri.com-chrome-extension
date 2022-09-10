@@ -24,8 +24,16 @@ function getStockTable(element) {
   return normalizedHtml;
 }
 
+async function saveTokenHandler() {
+  const value =  document.getElementById('tokenField').value;
+  await chrome.storage.sync.set({ ACCESS_TOKEN: value }, function() {
+    console.log('Value is set to ' + value);
+  });
+}
+
 async function clickHandler() {
   let tab = await getCurrentTab();
+  var oReq = new XMLHttpRequest();
 
   chrome.scripting.executeScript({
       target: { tabId: tab.id },
@@ -33,7 +41,7 @@ async function clickHandler() {
     }, (doc) => {
       const tableHtml = doc[0].result;
       const host = 'http://localhost:3000'
-      const requestPath = '/api/v1/portfolios';
+      const requestPath = '/home/api/import/rakuten';
 
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `${host}${requestPath}`);
@@ -54,4 +62,9 @@ async function clickHandler() {
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('importRakuten').addEventListener('click', clickHandler);
+  document.getElementById('tokenSaveButton').addEventListener('click', saveTokenHandler);
+
+  chrome.storage.sync.get(['ACCESS_TOKEN'], function(result) {
+    document.getElementById('tokenField').value = result["ACCESS_TOKEN"] || "";
+  });
 });

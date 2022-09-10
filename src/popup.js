@@ -42,7 +42,7 @@ async function clickHandler() {
       func: getStockTable,
     }, (doc) => {
       const tableHtml = doc[0].result;
-      const host = 'http://localhost:3000'
+      const host = <%= env.host %>// 'http://localhost:3000'
       const requestPath = '/api/v1/import/rakuten';
       const accessToken = document.getElementById('tokenField').value;
 

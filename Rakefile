@@ -12,7 +12,7 @@ end
 def build_from_erb(env, from: )
   popup_js = ERB.new(
     File.open(from).read,
-    nil, '-'
+    trim_mode: '-'
   ).result(binding)
 end
 
@@ -22,8 +22,7 @@ task :build do
   env = YAML.load_file('src/env.yml')['development']
   File.write('dev/popup.js', build_from_erb(env, from: './src/popup.js.erb'))
   File.write('dev/manifest.json', build_from_erb(env, from: './src/manifest.json.erb'))
-
-  `cp src/popup.html dev/popup.html`
+  File.write('dev/popup.html', build_from_erb(env, from: './src/popup.html.erb'))
 
   logger.info 'built!'
 end
@@ -34,8 +33,7 @@ task :production_build do
   env = YAML.load_file('src/env.yml')['production']
   File.write('dist/popup.js', build_from_erb(env, from: './src/popup.js.erb'))
   File.write('dist/manifest.json', build_from_erb(env, from: './src/manifest.json.erb'))
-
-  `cp src/popup.html dist/popup.html`
+  File.write('dist/popup.html', build_from_erb(env, from: './src/popup.html.erb'))
 
   logger.info 'built!'
 end

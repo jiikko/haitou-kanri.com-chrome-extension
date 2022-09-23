@@ -23,6 +23,9 @@ task :build do
   File.write('dev/popup.js', build_from_erb(env, from: './src/popup.js.erb'))
   File.write('dev/manifest.json', build_from_erb(env, from: './src/manifest.json.erb'))
   File.write('dev/popup.html', build_from_erb(env, from: './src/popup.html.erb'))
+  `cp ./src//icon16.png ./dev/`
+  `cp ./src//icon48.png ./dev/`
+  `cp ./src//icon128.png ./dev/`
 
   logger.info 'built!'
 end
@@ -34,6 +37,9 @@ task :production_build do
   File.write('dist/popup.js', build_from_erb(env, from: './src/popup.js.erb'))
   File.write('dist/manifest.json', build_from_erb(env, from: './src/manifest.json.erb'))
   File.write('dist/popup.html', build_from_erb(env, from: './src/popup.html.erb'))
+  `cp ./src//icon16.png ./dist/`
+  `cp ./src//icon48.png ./dist/`
+  `cp ./src//icon128.png ./dist/`
 
   logger.info 'built!'
 end

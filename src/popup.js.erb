@@ -46,21 +46,36 @@ async function clickHandler() {
       const requestPath = '/api/v1/import/rakuten';
       const accessToken = document.getElementById('tokenField').value;
 
+      if(!tableHtml) {
+        document.getElementById('errorMessage').innerText = "取り込みできません。証券会社のページを開いてください。";
+        document.getElementById('successMessage').innerText = "";
+        return;
+      }
+
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `${host}${requestPath}`);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('Authorization', accessToken);
-      const data =JSON.stringify({ html: tableHtml });
+      const data = JSON.stringify({ html: tableHtml });
 
       xhr.onload = () => {
         const message = JSON.parse(xhr.responseText).message
+        console.log(message)
 
         switch(xhr.status) {
           case 200:
             document.getElementById('successMessage').innerText = message;
             document.getElementById('errorMessage').innerText = "";
           case 400:
-            document.getElementById('errorMessage').innerText = message;
+            let errorMessage = undefined;
+            if(message === "No more can be created. Please reduce your portfolio.") {
+              errorMessage = "これ以上作成できません。 ポートフォリオを減らしてください。";
+            } else if (message === "could not parse") {
+              errorMessage = "取り込みに失敗しました。証券会社のページを開いてください。";
+            } else {
+              errorMessage = message;
+            }
+            document.getElementById('errorMessage').innerText = errorMessage;
             document.getElementById('successMessage').innerText = "";
             break;
           case 401: // unauthorize

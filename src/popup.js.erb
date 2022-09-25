@@ -64,8 +64,17 @@ async function clickHandler() {
 
         switch(xhr.status) {
           case 200:
-            document.getElementById('successMessage').innerText = message;
+            let sMessage = undefined;
+
+            if(message === "OK") {
+              sMessage = "取り込みに成功しました。";
+            } else {
+              sMessage = message;
+            }
+
+            document.getElementById('successMessage').innerText = sMessage;
             document.getElementById('errorMessage').innerText = "";
+            break;
           case 400:
             let errorMessage = undefined;
             if(message === "No more can be created. Please reduce your portfolio.") {
